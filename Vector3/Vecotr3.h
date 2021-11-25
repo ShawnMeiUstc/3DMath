@@ -44,12 +44,17 @@ public:
 	}
 
 	void zero() { x = y = z = 0.0f; }
+
 	void normalize() {
-		assert(!isZeroVector(*this));
+		assert(!isZeroVector());
 		const float oneOverMag = 1.0f / sqrt(x * x + y * y + z * z);
 		x *= oneOverMag;
 		y *= oneOverMag;
 		z *= oneOverMag;
+	}
+
+	bool isZeroVector() {
+		return floatEqual(x, 0.0f) && floatEqual(y, 0.0f) && floatEqual(z, 0.0f);
 	}
 };
 
@@ -111,4 +116,6 @@ inline float distance(const Vector3& a, const Vector3& b) {
 	float dz = a.z - b.z;
 	return sqrt(dx * dx + dy * dy + dz * dz);
 }
+
+extern const Vector3 ZEROVECTOR = Vector3();
 
