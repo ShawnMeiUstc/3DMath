@@ -1,6 +1,15 @@
 #pragma once
+#include <cassert>
 #include "Util.h"
-#include "Stdafx.h"
+/// <summary>
+/// 为了解决一些频繁调用的小函数大量消耗栈空间（栈内存）的问题，特别的引入了 inline 修饰符
+/// inline 只适合涵数体内代码简单的涵数使用，不能包含复杂的结构控制语句例如 while、switch,
+/// inline 函数仅仅是一个对编译器的建议，所以最后能否真正内联，看编译器的意思
+/// 关键字 inline 必须与函数定义体放在一起才能使函数成为内联，仅将 inline 放在函数声明前面不起任何作用
+/// </summary>
+inline bool floatEqual(const float x, const float y) {
+	return abs(x - y) < 1e-10f;
+}
 
 class Vector3 {
 public:
@@ -117,5 +126,5 @@ inline float distance(const Vector3& a, const Vector3& b) {
 	return sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-extern const Vector3 ZEROVECTOR = Vector3();
+extern const Vector3 kZeroVector;
 
