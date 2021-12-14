@@ -274,7 +274,7 @@ void Matrix4x3::setupReflect(AxisTypeEnum axis, float k) {
 	default:
 		assert(false);
 		break;
-	}
+	} 
 }
 
 //构造任意平面反射的矩阵
@@ -384,6 +384,7 @@ Vector3 getTranslation(const Matrix4x3& m) {
 //从矩阵中获取方位
 //从父矩阵——局部矩阵矩阵中获取方位
 Vector3 getPositionFromParentToLocalMatrix(const Matrix4x3& m) {
+	// 负的平移值乘以3x3部分的转置
 	return Vector3(
 		-(m.tx * m.m11 + m.ty * m.m12 + m.tz * m.m13),
 		-(m.tx * m.m21 + m.ty * m.m22 + m.tz * m.m23),

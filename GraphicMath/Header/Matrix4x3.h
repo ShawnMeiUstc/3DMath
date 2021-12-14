@@ -4,7 +4,7 @@ class EulerAngles;
 class Quaternion;
 class RotationMatrix;
 
-enum AxisTypeEnum
+enum class AxisTypeEnum
 {
 	x,
 	y,
