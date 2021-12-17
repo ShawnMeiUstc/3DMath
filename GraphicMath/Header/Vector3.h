@@ -126,5 +126,12 @@ inline float distance(const Vector3& a, const Vector3& b) {
 	return sqrt(dx * dx + dy * dy + dz * dz);
 }
 
+inline float distanceSquared(const Vector3& a, const Vector3& b) {
+	float dx = a.x - b.x;
+	float dy = a.y - b.y;
+	float dz = a.z - b.z;
+	return dx * dx + dy * dy + dz * dz;
+}
+
 extern const Vector3 kZeroVector;
 

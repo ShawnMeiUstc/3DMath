@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Header\AABB3.h" />
     <ClInclude Include="Header\EulerAngles.h" />
     <ClInclude Include="Header\Matrix4x3.h" />
     <ClInclude Include="Header\Quaternion.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Header\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\AABB3.cpp" />
     <ClCompile Include="Src\EulerAngles.cpp" />
     <ClCompile Include="Src\Matrix4x3.cpp" />
     <ClCompile Include="Src\Quaternion.cpp" />
