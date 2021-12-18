@@ -18,6 +18,21 @@ inline void sinCos(float& returnSin, float& returnCos, float theta) {
 	returnSin = sin(theta);
 	returnCos = cos(theta);
 }
+/// <summary>
+/// 快速射线与三角形相交检测
+/// </summary>
+/// <param name="orig">射线起点</param>
+/// <param name="dir"></param>
+/// <param name="v0"></param>
+/// <param name="v1"></param>
+/// <param name="v2"></param>
+/// <param name="t"></param>
+/// <param name="u"></param>
+/// <param name="v"></param>
+/// <returns></returns>
+extern bool IntersectTriangle(const Vector3& orig, const Vector3& dir,
+	Vector3& v0, Vector3& v1, Vector3& v2,
+	float* t, float* u, float* v);
 
 
 

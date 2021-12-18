@@ -372,6 +372,9 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 // 小于0  矩形边界框完全在平面的背面
 // 大于0  矩形边界框完全在平面的正面
 // 0  矩形边界框和平面相交
+// 
+// {{min.x, max.x}, {min.y, max.y}, {min.z, max.z}}这些2x2x2的组合点都在AABB
+// 边界上，是能取到的，这里计算的minD、maxD的值就是算这2x2x2的组合点中与n点乘的极值
 int AABB3::classifyPlane(const Vector3& n, float d) const
 {
 	//计算最小和最大距离
@@ -416,15 +419,15 @@ int AABB3::classifyPlane(const Vector3& n, float d) const
 	//横跨平面
 	return 0;
 }
-//和平面的动态相交性测试
-//n为平面的法向量（标准化向量）
-//planeD 为平面方程 p*n=d 中的D值
-//dir AABB移动的方向
-//
-//假设平面是静止的
-//返回交点的参数值——相交时AABB移动的距离，如果未相交则返回一个大数
-//
-//只探测和平面正面的相交
+/// <summary>
+/// 和平面的动态相交性测试 假设平面是静止的 只探测和平面正面的相交
+/// 平面 p·n=d AABB移动：p = p0 + dir·t
+/// 
+/// </summary>
+/// <param name="n">平面法向量</param>
+/// <param name="planeD">平面d值</param>
+/// <param name="dir">AABB移动方向</param>
+/// <returns>返回交点的参数值——相交时AABB移动的距离，如果未相交则返回一个大数</returns>
 float AABB3::intersectPlane(const Vector3& n, float planeD, const Vector3& dir) const
 {
 	//检测向量是否正则化
@@ -432,7 +435,7 @@ float AABB3::intersectPlane(const Vector3& n, float planeD, const Vector3& dir) 
 	assert(fabs(magtitude(dir) * magtitude(dir) - 1.0f) < .01);
 	//如果未相交则返回这个大数
 	const float kNoIntersection = 1e30f;
-	//计算夹角，确保是在平面的正面移动
+	//计算夹角，确保是在朝着平面的正面移动
 	float dot = dotProduct(n, dir);
 	if (dot >= 0.0f) {
 		return kNoIntersection;
@@ -470,7 +473,8 @@ float AABB3::intersectPlane(const Vector3& n, float planeD, const Vector3& dir) 
 	if (maxD <= planeD) {
 		return kNoIntersection;
 	}
-	//将最前面定点带入标准射线方程
+	// 将最前面定点带入标准射线方程
+	// 射线与平面相交问题
 	float t = (planeD - minD) / dot;
 	if (t < 0.0f) {
 		//穿过他了

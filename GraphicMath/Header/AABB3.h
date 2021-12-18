@@ -1,6 +1,5 @@
 #pragma once
 #include "Vector3.h"
-
 class Matrix4x3;
 // 名称：AABB3D
 // 创建者：cary
@@ -47,16 +46,13 @@ public:
 	// 大于0  矩形边界框完全在平面的正面
 	// 0  矩形边界框和平面相交
 	int classifyPlane(const Vector3& n, float d)const;
-	//和平面的动态相交性测试
-	//n为平面的法向量（标准化向量）
-	//planeD 为平面方程 p*n=d 中的D值
-	//dir AABB移动的方向
-	//
-	//假设平面是静止的
-	//返回交点的参数值——相交时AABB移动的距离，如果未相交则返回一个大数
-	//
-	//只探测和平面正面的相交
-	// 返回值 如果 大于1，则未能及时到达平面，这时需要调用者进行检查
+	/// <summary>
+	/// 和平面的动态相交性测试 假设平面是静止的 只探测和平面正面的相交
+	/// </summary>
+	/// <param name="n">平面法向量</param>
+	/// <param name="planeD">平面d值</param>
+	/// <param name="dir">AABB移动方向</param>
+	/// <returns>返回交点的参数值——相交时AABB移动的距离，如果未相交则返回一个大数</returns>
 	float intersectPlane(const Vector3& n, float planeD, const Vector3& dir)const;
 
 };
