@@ -290,7 +290,10 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		return 0.0f;
 	}
 
-	//选择最远的平面——发生相交的地方
+	// 选择最远的平面——发生相交的地方
+	// 距离远的面会从那一边相交
+	// 当射线与这三个候选面中的一个发生交叉之后，
+	// 射线Ray的原点到这个面的距离要比到其他几个面的距离要长。
 	int which = 0;
 	float t = xt;
 	if (yt > t) {
