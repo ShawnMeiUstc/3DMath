@@ -25,7 +25,7 @@ Vector3 AABB3::corner(int i)const {
 //“清空”矩形边界框
 //将值赋为极大值/极小值已清空矩形边界框
 void AABB3::empty() {
-	const float kBigNumber = 1e37f;
+	const float kBigNumber = FLT_MAX;
 	min.x = min.y = min.z = +kBigNumber;
 	max.x = max.y = max.z = -kBigNumber;
 }
@@ -158,16 +158,13 @@ bool AABB3::contains(const Vector3& p) const
 Vector3 AABB3::closestPointTo(const Vector3& p) const
 {
 	//在每一维上将p“推向”矩形边界框
-	Vector3 r;
+	Vector3 r{p};
 	//x
 	if (p.x < min.x) {
 		r.x = min.x;
 	}
 	else if (p.x > max.x) {
 		r.x = max.x;
-	}
-	else {
-		r.x = p.x;
 	}
 
 	//y
@@ -177,9 +174,6 @@ Vector3 AABB3::closestPointTo(const Vector3& p) const
 	else if (p.y > max.y) {
 		r.y = max.y;
 	}
-	else {
-		r.y = p.y;
-	}
 
 	//z
 	if (p.z < min.z) {
@@ -187,9 +181,6 @@ Vector3 AABB3::closestPointTo(const Vector3& p) const
 	}
 	else if (p.z > max.z) {
 		r.z = max.z;
-	}
-	else {
-		r.z = p.z;
 	}
 	return r;
 }
@@ -213,7 +204,7 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 	const float kNoIntersection = 1e30f;
 	//检查点在矩形边界框内的情况，并计算到每个面的距离
 	bool inside = true;
-	float xt, xn;
+	float xt = 0.0f, xn = 0.0f;
 	if (rayOrg.x < min.x) {
 		xt = min.x - rayOrg.x;
 		if (xt > rayDelta.x) {
@@ -232,11 +223,11 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		inside = false;
 		xn = -1.0f;
 	}
-	else {
+	else { // xt的值对应yz平面，这种情况下，不可能跟yz相交（除非点在内部），所以给个负值
 		xt = -1.0f;
 	}
 
-	float yt, yn;
+	float yt = 0.0f, yn = 0.0f;
 	if (rayOrg.y < min.y) {
 		yt = min.y - rayOrg.y;
 		if (yt > rayDelta.y) {
@@ -259,7 +250,7 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		yt = -1.0f;
 	}
 
-	float zt, zn;
+	float zt = 0.0f, zn = 0.0f;
 	if (rayOrg.z < min.z) {
 		zt = min.z - rayOrg.z;
 		if (zt > rayDelta.z) {
