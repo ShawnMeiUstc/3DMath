@@ -40,6 +40,8 @@ bool IntersectTriangle(const Vector3& orig, const Vector3& dir,
 	float* t, float* u, float* v);
 
 
+// https://zhuanlan.zhihu.com/p/99761177
+// 凸多边形的相交性检测的分离轴定理
 
 
 
