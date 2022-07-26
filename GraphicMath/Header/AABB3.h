@@ -2,9 +2,9 @@
 #include "Vector3.h"
 class Matrix4x3;
 class Vector3;
-// ���ƣ�AABB3D
-// �����ߣ�cary
-// ������3D�е��������α߽��AABB��
+// 名称：AABB3D
+// 创建者：cary
+// 描述：3D中的轴对齐矩形边界框（AABB）
 class AABB3
 {
 public:
@@ -16,62 +16,62 @@ public:
 	float zSize() { return max.z - min.z; }
 	Vector3 center() const { return (min + max) * .5f; }
 
-	//��ȡ�˸������е�һ��
+	//提取八个定点中的一个
 	Vector3 corner(int i)const;
 
-	//���α߽�����
-	//����ա����α߽��
+	//矩形边界框操作
+	//“清空”矩形边界框
 	void empty();
 
-	//����α߽�������ӵ�
+	//向矩形边界框中添加点
 	void add(const Vector3& p);
 
-	//����α߽��������AABB
+	//向矩形边界框中添加AABB
 	void add(const AABB3& box);
 
-	//�任���α߽��,�����µ�AABB
+	//变换矩形边界框,计算新的AABB
 	void setToTransFormedBox(const AABB3& box, const Matrix4x3& m);
 
-	//����/�ཻ�Բ���
-	//���� true��������α߽�Ϊ��
+	//包含/相交性测试
+	//返回 true，如果矩形边界为空
 	bool isEmpty() const;
 
-	//����true��������ΰ����õ�
+	//返回true，如果矩形包含该点
 	bool contains(const Vector3& p) const;
 
-	//���ؾ���߽���ϵ������
+	//返回矩阵边界框上的最近点
 	Vector3 closestPointTo(const Vector3& p)const;
 
-	//����true����������ཻ
+	//返回true，如果和球相交
 	bool intersectsSphere(const Vector3& center, float radius)const;
 
-	//�Ͳ������ߵ��ཻ�Բ��ԣ���������򷵻�ֵ����1
-	//rayOrg ������� 
-	//rayDelta ���߳��Ⱥͷ���
-	//returnNoamal��ѡ���ཻ��
+	//和参数射线的相交性测试，如果不相则返回值大于1
+	//rayOrg 射线起点 
+	//rayDelta 射线长度和方向
+	//returnNoamal可选的相交点
 	float rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3* returnNoamal = 0)const;
 
-	//�жϾ��α߽���ھ��ε���һ��
-	//��ֹAABB��ƽ����ཻ�Լ��
-	//����ֵ��
-	// С��0  ���α߽����ȫ��ƽ��ı���
-	// ����0  ���α߽����ȫ��ƽ�������
-	// 0  ���α߽���ƽ���ཻ
+	//判断矩形边界框在矩形的那一面
+	//静止AABB与平面的相交性检测
+	//返回值：
+	// 小于0  矩形边界框完全在平面的背面
+	// 大于0  矩形边界框完全在平面的正面
+	// 0  矩形边界框和平面相交
 	int classifyPlane(const Vector3& n, float d)const;
 
 	/// <summary>
-	/// ��ƽ��Ķ�̬�ཻ�Բ��� ����ƽ���Ǿ�ֹ�� ֻ̽���ƽ��������ཻ
+	/// 和平面的动态相交性测试 假设平面是静止的 只探测和平面正面的相交
 	/// </summary>
-	/// <param name="n">ƽ�淨����</param>
-	/// <param name="planeD">ƽ��dֵ</param>
-	/// <param name="dir">AABB�ƶ�����</param>
-	/// <returns>���ؽ���Ĳ���ֵ�����ཻʱAABB�ƶ��ľ��룬���δ�ཻ�򷵻�һ������</returns>
+	/// <param name="n">平面法向量</param>
+	/// <param name="planeD">平面d值</param>
+	/// <param name="dir">AABB移动方向</param>
+	/// <returns>返回交点的参数值——相交时AABB移动的距离，如果未相交则返回一个大数</returns>
 	float intersectPlane(const Vector3& n, float planeD, const Vector3& dir)const;
 
 };
 
-//���AABB���ཻ�ԣ��������true�������Է����ཻ���ֵ�AABB
+//检测AABB的相交性，如果返回true，还可以返回相交部分的AABB
 bool intersectAABBs(const AABB3& box1, const AABB3& box2, AABB3* boxIntersect = 0);
 
-//�����˶�AABB�;�ֹAABB�ཻʱ�Ĳ����㣬������ཻ�򷵻�ֵ����1
+//返回运动AABB和静止AABB相交时的参数点，如果不相交则返回值大于1
 float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, const Vector3& d);

@@ -23,7 +23,7 @@ public :
 
 	Quaternion operator* (const Quaternion& a) const;
 	/// <summary>
-	///  调用对象可作为左值，不能是const
+	///  璋冪敤瀵硅薄鍙綔涓哄乏鍊硷紝涓嶈兘鏄痗onst
 	/// </summary>
 	Quaternion& operator*= (const Quaternion& a);
 

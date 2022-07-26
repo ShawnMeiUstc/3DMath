@@ -2,10 +2,10 @@
 #include <cassert>
 #include "Util.h"
 /// <summary>
-/// ÎªÁË½â¾öÒ»Ğ©Æµ·±µ÷ÓÃµÄĞ¡º¯Êı´óÁ¿ÏûºÄÕ»¿Õ¼ä£¨Õ»ÄÚ´æ£©µÄÎÊÌâ£¬ÌØ±ğµÄÒıÈëÁË inline ĞŞÊÎ·û
-/// inline Ö»ÊÊºÏº­ÊıÌåÄÚ´úÂë¼òµ¥µÄº­ÊıÊ¹ÓÃ£¬²»ÄÜ°üº¬¸´ÔÓµÄ½á¹¹¿ØÖÆÓï¾äÀıÈç while¡¢switch,
-/// inline º¯Êı½ö½öÊÇÒ»¸ö¶Ô±àÒëÆ÷µÄ½¨Òé£¬ËùÒÔ×îºóÄÜ·ñÕæÕıÄÚÁª£¬¿´±àÒëÆ÷µÄÒâË¼
-/// ¹Ø¼ü×Ö inline ±ØĞëÓëº¯Êı¶¨ÒåÌå·ÅÔÚÒ»Æğ²ÅÄÜÊ¹º¯Êı³ÉÎªÄÚÁª£¬½ö½« inline ·ÅÔÚº¯ÊıÉùÃ÷Ç°Ãæ²»ÆğÈÎºÎ×÷ÓÃ
+/// ä¸ºäº†è§£å†³ä¸€äº›é¢‘ç¹è°ƒç”¨çš„å°å‡½æ•°å¤§é‡æ¶ˆè€—æ ˆç©ºé—´ï¼ˆæ ˆå†…å­˜ï¼‰çš„é—®é¢˜ï¼Œç‰¹åˆ«çš„å¼•å…¥äº† inline ä¿®é¥°ç¬¦
+/// inline åªé€‚åˆæ¶µæ•°ä½“å†…ä»£ç ç®€å•çš„æ¶µæ•°ä½¿ç”¨ï¼Œä¸èƒ½åŒ…å«å¤æ‚çš„ç»“æ„æ§åˆ¶è¯­å¥ä¾‹å¦‚ whileã€switch,
+/// inline å‡½æ•°ä»…ä»…æ˜¯ä¸€ä¸ªå¯¹ç¼–è¯‘å™¨çš„å»ºè®®ï¼Œæ‰€ä»¥æœ€åèƒ½å¦çœŸæ­£å†…è”ï¼Œçœ‹ç¼–è¯‘å™¨çš„æ„æ€
+/// å…³é”®å­— inline å¿…é¡»ä¸å‡½æ•°å®šä¹‰ä½“æ”¾åœ¨ä¸€èµ·æ‰èƒ½ä½¿å‡½æ•°æˆä¸ºå†…è”ï¼Œä»…å°† inline æ”¾åœ¨å‡½æ•°å£°æ˜å‰é¢ä¸èµ·ä»»ä½•ä½œç”¨
 /// </summary>
 inline bool floatEqual(const float x, const float y) {
 	return abs(x - y) < 1e-10f;
@@ -18,7 +18,7 @@ public:
 	Vector3(const Vector3& a) : x(a.x), y(a.y), z(a.z) {}
 	Vector3(float nx, float ny, float nz) : x(nx), y(ny), z(nz) {}
 
-	Vector3& operator=(const Vector3& rhs) {  // p493 = [] () -> ±ØĞëÊÇ³ÉÔ± ·µ»ØÒıÓÃÄ£ÄâÁ¬Ğø¸³Öµ
+	Vector3& operator=(const Vector3& rhs) {  // p493 = [] () -> å¿…é¡»æ˜¯æˆå‘˜ è¿”å›å¼•ç”¨æ¨¡æ‹Ÿè¿ç»­èµ‹å€¼
 		x = rhs.x;
 		y = rhs.y;
 		z = rhs.z;
@@ -67,8 +67,8 @@ public:
 	}
 };
 
-inline bool operator==(const Vector3& lhs, const Vector3& rhs) { // p493 ¶Ô³ÆĞÔÔËËã·û£¬ËãÊõ¡¢ÏàµÈĞÔ¡¢¹ØÏµ¡¢Î»ÔËËã·ûµÈ£¬
-	return floatEqual(lhs.x, rhs.x) &&                    // ÈÎÒ»¶ËÔËËã¶ÔÏó¿ÉÄÜ·¢ÉúÀàĞÍ×ª»»£¬×îºÃ·Ç³ÉÔ±
+inline bool operator==(const Vector3& lhs, const Vector3& rhs) { // p493 å¯¹ç§°æ€§è¿ç®—ç¬¦ï¼Œç®—æœ¯ã€ç›¸ç­‰æ€§ã€å…³ç³»ã€ä½è¿ç®—ç¬¦ç­‰ï¼Œ
+	return floatEqual(lhs.x, rhs.x) &&                    // ä»»ä¸€ç«¯è¿ç®—å¯¹è±¡å¯èƒ½å‘ç”Ÿç±»å‹è½¬æ¢ï¼Œæœ€å¥½éæˆå‘˜
 		floatEqual(lhs.y, rhs.y) &&
 		floatEqual(lhs.z, rhs.z);
 }
@@ -89,13 +89,13 @@ inline Vector3 operator*(const Vector3& a, float num) {
 	return Vector3(num * a.x, num * a.y, num * a.z);
 }
 
-inline Vector3 operator*(float num, const Vector3& a) { // ×ó³ËÒ»¸öÊı
+inline Vector3 operator*(float num, const Vector3& a) { // å·¦ä¹˜ä¸€ä¸ªæ•°
 	return Vector3(num * a.x, num * a.y, num * a.z);
 }
 
 inline Vector3 operator/(const Vector3& a, const float num) {
 	assert(floatEqual(num, 0.0f));
-	const float oneOverNum = 1.0f / num;                                // ¾¡Á¿ÓÃ³Ë·¨´úÌæ³ı·¨
+	const float oneOverNum = 1.0f / num;                                // å°½é‡ç”¨ä¹˜æ³•ä»£æ›¿é™¤æ³•
 	return Vector3(oneOverNum * a.x, oneOverNum * a.y, oneOverNum * a.z);
 }
 

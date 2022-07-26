@@ -20,18 +20,18 @@ void RotationMatrix::setup(const EulerAngles& orientation)
 
 	m11 = ch * cb + sh * sp * sb;
 	m12 = -ch * sb + sh * sp * cb;
-	// todo 补充完整矩阵
+	// todo 琛ュ厖瀹屾暣鐭╅樀
 }
 
 void RotationMatrix::fromInertialToObjectQuaternion(const Quaternion& q)
 {
-	// todo 补充完整矩阵
+	// todo 琛ュ厖瀹屾暣鐭╅樀
 
 }
 
 void RotationMatrix::fromObjectToInertialQuaternion(const Quaternion& q)
 {
-	// todo 补充完整矩阵
+	// todo 琛ュ厖瀹屾暣鐭╅樀
 
 }
 

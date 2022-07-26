@@ -3,15 +3,15 @@
 
 #include <cmath>
 #include <cassert>
-// Ãû³Æ£ºAABB3D
-// ´´½¨Õß£ºcary
-// ÃèÊö£º3DÖĞµÄÖá¶ÔÆë¾ØĞÎ±ß½ç¿ò£¨AABB£©
+// åç§°ï¼šAABB3D
+// åˆ›å»ºè€…ï¼šcary
+// æè¿°ï¼š3Dä¸­çš„è½´å¯¹é½çŸ©å½¢è¾¹ç•Œæ¡†ï¼ˆAABBï¼‰
 
-//ÌáÈ¡°Ë¸ö¶¨µãÖĞµÄÒ»¸ö
-// ÏŞ¶¨ÔÚ [000,111]
-// µÚ0Î»Ñ¡Ôñ min.x vs. max.x
-// µÚ1Î»Ñ¡Ôñ min.y vs. max.y
-// µÚ2Î»Ñ¡Ôñ min.z vs. max.z
+//æå–å…«ä¸ªå®šç‚¹ä¸­çš„ä¸€ä¸ª
+// é™å®šåœ¨ [000,111]
+// ç¬¬0ä½é€‰æ‹© min.x vs. max.x
+// ç¬¬1ä½é€‰æ‹© min.y vs. max.y
+// ç¬¬2ä½é€‰æ‹© min.z vs. max.z
 Vector3 AABB3::corner(int i)const {
 	assert(i >= 0);
 	assert(i <= 7);
@@ -22,15 +22,15 @@ Vector3 AABB3::corner(int i)const {
 	);
 }
 
-//¡°Çå¿Õ¡±¾ØĞÎ±ß½ç¿ò
-//½«Öµ¸³Îª¼«´óÖµ/¼«Ğ¡ÖµÒÑÇå¿Õ¾ØĞÎ±ß½ç¿ò
+//â€œæ¸…ç©ºâ€çŸ©å½¢è¾¹ç•Œæ¡†
+//å°†å€¼èµ‹ä¸ºæå¤§å€¼/æå°å€¼å·²æ¸…ç©ºçŸ©å½¢è¾¹ç•Œæ¡†
 void AABB3::empty() {
 	const float kBigNumber = FLT_MAX;
 	min.x = min.y = min.z = +kBigNumber;
 	max.x = max.y = max.z = -kBigNumber;
 }
 
-//Ïò¾ØĞÎ±ß½ç¿òÖĞÌí¼Óµã
+//å‘çŸ©å½¢è¾¹ç•Œæ¡†ä¸­æ·»åŠ ç‚¹
 void AABB3::add(const Vector3& p) {
 	if (p.x < min.x)min.x = p.x;
 	if (p.y < min.y)min.y = p.y;
@@ -40,7 +40,7 @@ void AABB3::add(const Vector3& p) {
 	if (p.z > max.z)max.z = p.y;
 }
 
-//Ïò¾ØĞÎ±ß½ç¿òÖĞÌí¼ÓAABB
+//å‘çŸ©å½¢è¾¹ç•Œæ¡†ä¸­æ·»åŠ AABB
 void AABB3::add(const AABB3& box) {
 
 	if (box.min.x < min.x)min.x = box.min.x;
@@ -51,15 +51,15 @@ void AABB3::add(const AABB3& box) {
 	if (box.max.z > max.z)max.z = box.max.y;
 }
 
-//±ä»»¾ØĞÎ±ß½ç¿ò,¼ÆËãĞÂµÄAABB
-//»áµÃµ½Ò»¸öÒ»Ñù»òÕß´óµÃ¶àµÄAABB
+//å˜æ¢çŸ©å½¢è¾¹ç•Œæ¡†,è®¡ç®—æ–°çš„AABB
+//ä¼šå¾—åˆ°ä¸€ä¸ªä¸€æ ·æˆ–è€…å¤§å¾—å¤šçš„AABB
 void AABB3::setToTransFormedBox(const AABB3& box, const Matrix4x3& m)
 {
 	if (box.isEmpty()) {
 		empty();
 		return;
 	}
-	//Æ½ÒÆ
+	//å¹³ç§»
 	min = max = getTranslation(m);
 	//x
 	if (m.m11 > 0.0f) {
@@ -140,13 +140,13 @@ void AABB3::setToTransFormedBox(const AABB3& box, const Matrix4x3& m)
 	}
 }
 
-//·µ»Ø true£¬Èç¹û¾ØĞÎ±ß½çÎª¿Õ
+//è¿”å› trueï¼Œå¦‚æœçŸ©å½¢è¾¹ç•Œä¸ºç©º
 bool AABB3::isEmpty() const
 {
 	return (min.x > max.x) || (min.y > max.y) || (min.z > max.z);
 }
 
-//·µ»Øtrue£¬Èç¹û¾ØĞÎ°üº¬¸Ãµã
+//è¿”å›trueï¼Œå¦‚æœçŸ©å½¢åŒ…å«è¯¥ç‚¹
 bool AABB3::contains(const Vector3& p) const
 {
 	return (p.x >= min.x) && (p.x <= max.x)
@@ -154,10 +154,10 @@ bool AABB3::contains(const Vector3& p) const
 		&& (p.z >= min.z) && (p.z <= max.z);
 }
 
-//·µ»Ø¾ØÕó±ß½ç¿òÉÏµÄ×î½üµã
+//è¿”å›çŸ©é˜µè¾¹ç•Œæ¡†ä¸Šçš„æœ€è¿‘ç‚¹
 Vector3 AABB3::closestPointTo(const Vector3& p) const
 {
-	//ÔÚÃ¿Ò»Î¬ÉÏ½«p¡°ÍÆÏò¡±¾ØĞÎ±ß½ç¿ò
+	//åœ¨æ¯ä¸€ç»´ä¸Šå°†pâ€œæ¨å‘â€çŸ©å½¢è¾¹ç•Œæ¡†
 	Vector3 r{p};
 	//x
 	if (p.x < min.x) {
@@ -185,24 +185,24 @@ Vector3 AABB3::closestPointTo(const Vector3& p) const
 	return r;
 }
 
-//·µ»Øtrue£¬Èç¹ûºÍÇòÏà½»
+//è¿”å›trueï¼Œå¦‚æœå’Œçƒç›¸äº¤
 bool AABB3::intersectsSphere(const Vector3& center, float radius) const
 {
-	//ÕÒµ½¾ØĞÎ±ß½ç¿òÉÏÀëÇòĞÄ×î½üµÄµã
+	//æ‰¾åˆ°çŸ©å½¢è¾¹ç•Œæ¡†ä¸Šç¦»çƒå¿ƒæœ€è¿‘çš„ç‚¹
 	Vector3 closestPoint = closestPointTo(center);
-	//¼ì²é×î½üµãºÍÇòĞÄµÄ¾àÀëÊÇ·ñĞ¡ÓÚ°ë¾¶
+	//æ£€æŸ¥æœ€è¿‘ç‚¹å’Œçƒå¿ƒçš„è·ç¦»æ˜¯å¦å°äºåŠå¾„
 	return distanceSquared(center, closestPoint) < radius * radius;
 }
 
-//ºÍ²ÎÊıÉäÏßµÄÏà½»ĞÔ²âÊÔ£¬Èç¹û²»ÏàÔò·µ»ØÖµ´óÓÚ1
-	//rayOrg ÉäÏßÆğµã 
-	//rayDelta ÉäÏß³¤¶ÈºÍ·½Ïò
-	//returnNoamal¿ÉÑ¡µÄÏà½»µã
+//å’Œå‚æ•°å°„çº¿çš„ç›¸äº¤æ€§æµ‹è¯•ï¼Œå¦‚æœä¸ç›¸åˆ™è¿”å›å€¼å¤§äº1
+	//rayOrg å°„çº¿èµ·ç‚¹ 
+	//rayDelta å°„çº¿é•¿åº¦å’Œæ–¹å‘
+	//returnNoamalå¯é€‰çš„ç›¸äº¤ç‚¹
 float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3* returnNoamal) const
 {
-	//Èç¹ûÎ´Ïà½»Ôò·µ»ØÕâ¸ö´óÊı
+	//å¦‚æœæœªç›¸äº¤åˆ™è¿”å›è¿™ä¸ªå¤§æ•°
 	const float kNoIntersection = 1e30f;
-	//¼ì²éµãÔÚ¾ØĞÎ±ß½ç¿òÄÚµÄÇé¿ö£¬²¢¼ÆËãµ½Ã¿¸öÃæµÄ¾àÀë
+	//æ£€æŸ¥ç‚¹åœ¨çŸ©å½¢è¾¹ç•Œæ¡†å†…çš„æƒ…å†µï¼Œå¹¶è®¡ç®—åˆ°æ¯ä¸ªé¢çš„è·ç¦»
 	bool inside = true;
 	float xt = 0.0f, xn = 0.0f;
 	if (rayOrg.x < min.x) {
@@ -223,7 +223,7 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		inside = false;
 		xn = -1.0f;
 	}
-	else { // xtµÄÖµ¶ÔÓ¦yzÆ½Ãæ£¬ÕâÖÖÇé¿öÏÂ£¬²»¿ÉÄÜ¸úyzÏà½»£¨³ı·ÇµãÔÚÄÚ²¿£©£¬ËùÒÔ¸ø¸ö¸ºÖµ
+	else { // xtçš„å€¼å¯¹åº”yzå¹³é¢ï¼Œè¿™ç§æƒ…å†µä¸‹ï¼Œä¸å¯èƒ½è·Ÿyzç›¸äº¤ï¼ˆé™¤éç‚¹åœ¨å†…éƒ¨ï¼‰ï¼Œæ‰€ä»¥ç»™ä¸ªè´Ÿå€¼
 		xt = -1.0f;
 	}
 
@@ -281,10 +281,10 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		return 0.0f;
 	}
 
-	// Ñ¡Ôñ×îÔ¶µÄÆ½Ãæ¡ª¡ª·¢ÉúÏà½»µÄµØ·½
-	// ¾àÀëÔ¶µÄÃæ»á´ÓÄÇÒ»±ßÏà½»
-	// µ±ÉäÏßÓëÕâÈı¸öºòÑ¡ÃæÖĞµÄÒ»¸ö·¢Éú½»²æÖ®ºó£¬
-	// ÉäÏßRayµÄÔ­µãµ½Õâ¸öÃæµÄ¾àÀëÒª±Èµ½ÆäËû¼¸¸öÃæµÄ¾àÀëÒª³¤¡£
+	// é€‰æ‹©æœ€è¿œçš„å¹³é¢â€”â€”å‘ç”Ÿç›¸äº¤çš„åœ°æ–¹
+	// è·ç¦»è¿œçš„é¢ä¼šä»é‚£ä¸€è¾¹ç›¸äº¤
+	// å½“å°„çº¿ä¸è¿™ä¸‰ä¸ªå€™é€‰é¢ä¸­çš„ä¸€ä¸ªå‘ç”Ÿäº¤å‰ä¹‹åï¼Œ
+	// å°„çº¿Rayçš„åŸç‚¹åˆ°è¿™ä¸ªé¢çš„è·ç¦»è¦æ¯”åˆ°å…¶ä»–å‡ ä¸ªé¢çš„è·ç¦»è¦é•¿ã€‚
 	int which = 0;
 	float t = xt;
 	if (yt > t) {
@@ -298,7 +298,7 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 
 	switch (which)
 	{
-	case 0://ºÍyzÆ½ÃæÏà½»
+	case 0://å’Œyzå¹³é¢ç›¸äº¤
 	{
 		float y = rayOrg.y + rayDelta.y * t;
 		if (y<min.y || y>max.y) {
@@ -316,7 +316,7 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		}
 	}
 	break;
-	case 1://ºÍxzÆ½ÃæÏà½»
+	case 1://å’Œxzå¹³é¢ç›¸äº¤
 	{
 		float x = rayOrg.x + rayDelta.x * t;
 		if (x<min.x || x>max.x) {
@@ -334,7 +334,7 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 		}
 	}
 	break;
-	case 2://ºÍxyÆ½ÃæÏà½»
+	case 2://å’Œxyå¹³é¢ç›¸äº¤
 	{
 		float x = rayOrg.x + rayDelta.x * t;
 		if (x<min.x || x>max.x) {
@@ -360,18 +360,18 @@ float AABB3::rayIntersect(const Vector3& rayOrg, const Vector3 rayDelta, Vector3
 	return t;
 }
 
-//ÅĞ¶Ï¾ØĞÎ±ß½ç¿òÔÚ¾ØĞÎµÄÄÇÒ»Ãæ
-//¾²Ö¹AABBÓëÆ½ÃæµÄÏà½»ĞÔ¼ì²â
-//·µ»ØÖµ£º
-// Ğ¡ÓÚ0  ¾ØĞÎ±ß½ç¿òÍêÈ«ÔÚÆ½ÃæµÄ±³Ãæ
-// ´óÓÚ0  ¾ØĞÎ±ß½ç¿òÍêÈ«ÔÚÆ½ÃæµÄÕıÃæ
-// 0  ¾ØĞÎ±ß½ç¿òºÍÆ½ÃæÏà½»
+//åˆ¤æ–­çŸ©å½¢è¾¹ç•Œæ¡†åœ¨çŸ©å½¢çš„é‚£ä¸€é¢
+//é™æ­¢AABBä¸å¹³é¢çš„ç›¸äº¤æ€§æ£€æµ‹
+//è¿”å›å€¼ï¼š
+// å°äº0  çŸ©å½¢è¾¹ç•Œæ¡†å®Œå…¨åœ¨å¹³é¢çš„èƒŒé¢
+// å¤§äº0  çŸ©å½¢è¾¹ç•Œæ¡†å®Œå…¨åœ¨å¹³é¢çš„æ­£é¢
+// 0  çŸ©å½¢è¾¹ç•Œæ¡†å’Œå¹³é¢ç›¸äº¤
 // 
-// {{min.x, max.x}, {min.y, max.y}, {min.z, max.z}}ÕâĞ©2x2x2µÄ×éºÏµã¶¼ÔÚAABB
-// ±ß½çÉÏ£¬ÊÇÄÜÈ¡µ½µÄ£¬ÕâÀï¼ÆËãµÄminD¡¢maxDµÄÖµ¾ÍÊÇËãÕâ2x2x2µÄ×éºÏµãÖĞÓënµã³ËµÄ¼«Öµ
+// {{min.x, max.x}, {min.y, max.y}, {min.z, max.z}}è¿™äº›2x2x2çš„ç»„åˆç‚¹éƒ½åœ¨AABB
+// è¾¹ç•Œä¸Šï¼Œæ˜¯èƒ½å–åˆ°çš„ï¼Œè¿™é‡Œè®¡ç®—çš„minDã€maxDçš„å€¼å°±æ˜¯ç®—è¿™2x2x2çš„ç»„åˆç‚¹ä¸­ä¸nç‚¹ä¹˜çš„æå€¼
 int AABB3::classifyPlane(const Vector3& n, float d) const
 {
-	//¼ÆËã×îĞ¡ºÍ×î´ó¾àÀë
+	//è®¡ç®—æœ€å°å’Œæœ€å¤§è·ç¦»
 	float minD, maxD;
 	if (n.x > 0.0f) {
 		minD = n.x * min.x;
@@ -401,40 +401,40 @@ int AABB3::classifyPlane(const Vector3& n, float d) const
 	}
 
 	if (minD >= d) {
-		//Ç°Ãæ
+		//å‰é¢
 		return +1;
 	}
 
 	if (maxD <= d) {
-		//±³Ãæ
+		//èƒŒé¢
 		return -1;
 	}
 
-	//ºá¿çÆ½Ãæ
+	//æ¨ªè·¨å¹³é¢
 	return 0;
 }
 /// <summary>
-/// ºÍÆ½ÃæµÄ¶¯Ì¬Ïà½»ĞÔ²âÊÔ ¼ÙÉèÆ½ÃæÊÇ¾²Ö¹µÄ Ö»Ì½²âºÍÆ½ÃæÕıÃæµÄÏà½»
-/// Æ½Ãæ p¡¤n=d AABBÒÆ¶¯£ºp = p0 + dir¡¤t
+/// å’Œå¹³é¢çš„åŠ¨æ€ç›¸äº¤æ€§æµ‹è¯• å‡è®¾å¹³é¢æ˜¯é™æ­¢çš„ åªæ¢æµ‹å’Œå¹³é¢æ­£é¢çš„ç›¸äº¤
+/// å¹³é¢ pÂ·n=d AABBç§»åŠ¨ï¼šp = p0 + dirÂ·t
 /// 
 /// </summary>
-/// <param name="n">Æ½Ãæ·¨ÏòÁ¿</param>
-/// <param name="planeD">Æ½ÃædÖµ</param>
-/// <param name="dir">AABBÒÆ¶¯·½Ïò</param>
-/// <returns>·µ»Ø½»µãµÄ²ÎÊıÖµ¡ª¡ªÏà½»Ê±AABBÒÆ¶¯µÄ¾àÀë£¬Èç¹ûÎ´Ïà½»Ôò·µ»ØÒ»¸ö´óÊı</returns>
+/// <param name="n">å¹³é¢æ³•å‘é‡</param>
+/// <param name="planeD">å¹³é¢då€¼</param>
+/// <param name="dir">AABBç§»åŠ¨æ–¹å‘</param>
+/// <returns>è¿”å›äº¤ç‚¹çš„å‚æ•°å€¼â€”â€”ç›¸äº¤æ—¶AABBç§»åŠ¨çš„è·ç¦»ï¼Œå¦‚æœæœªç›¸äº¤åˆ™è¿”å›ä¸€ä¸ªå¤§æ•°</returns>
 float AABB3::intersectPlane(const Vector3& n, float planeD, const Vector3& dir) const
 {
-	//¼ì²âÏòÁ¿ÊÇ·ñÕıÔò»¯
+	//æ£€æµ‹å‘é‡æ˜¯å¦æ­£åˆ™åŒ–
 	assert(fabs(magtitude(n) * magtitude(n) - 1.0f) < .01);
 	assert(fabs(magtitude(dir) * magtitude(dir) - 1.0f) < .01);
-	//Èç¹ûÎ´Ïà½»Ôò·µ»ØÕâ¸ö´óÊı
+	//å¦‚æœæœªç›¸äº¤åˆ™è¿”å›è¿™ä¸ªå¤§æ•°
 	const float kNoIntersection = 1e30f;
-	//¼ÆËã¼Ğ½Ç£¬È·±£ÊÇÔÚ³¯×ÅÆ½ÃæµÄÕıÃæÒÆ¶¯
+	//è®¡ç®—å¤¹è§’ï¼Œç¡®ä¿æ˜¯åœ¨æœç€å¹³é¢çš„æ­£é¢ç§»åŠ¨
 	float dot = dotProduct(n, dir);
 	if (dot >= 0.0f) {
 		return kNoIntersection;
 	}
-	//¼ì²é·¨ÏòÁ¿£¬¼ÆËã×îĞ¡ºÍ×î´óÖµ£¬minDÊÇ¡°ÅÜÔÚ×îÇ°ÃæµÄ¡±¶¥µãµÄDÖµ
+	//æ£€æŸ¥æ³•å‘é‡ï¼Œè®¡ç®—æœ€å°å’Œæœ€å¤§å€¼ï¼ŒminDæ˜¯â€œè·‘åœ¨æœ€å‰é¢çš„â€é¡¶ç‚¹çš„Då€¼
 	float minD, maxD;
 	if (n.x > 0.0f) {
 		minD = n.x * min.x;
@@ -463,32 +463,32 @@ float AABB3::intersectPlane(const Vector3& n, float planeD, const Vector3& dir) 
 		maxD += n.z * min.z;
 	}
 
-	//¼ì²âÊÇ·ñÒÑ¾­È«²¿ÔÚÆ½ÃæµÄÒ»Ãæ
+	//æ£€æµ‹æ˜¯å¦å·²ç»å…¨éƒ¨åœ¨å¹³é¢çš„ä¸€é¢
 	if (maxD <= planeD) {
 		return kNoIntersection;
 	}
-	// ½«×îÇ°Ãæ¶¨µã´øÈë±ê×¼ÉäÏß·½³Ì
-	// ÉäÏßÓëÆ½ÃæÏà½»ÎÊÌâ
+	// å°†æœ€å‰é¢å®šç‚¹å¸¦å…¥æ ‡å‡†å°„çº¿æ–¹ç¨‹
+	// å°„çº¿ä¸å¹³é¢ç›¸äº¤é—®é¢˜
 	float t = (planeD - minD) / dot;
 	if (t < 0.0f) {
-		//´©¹ıËûÁË
+		//ç©¿è¿‡ä»–äº†
 		return 0.0f;
 	}
-	//Èç¹û ´óÓÚ1£¬ÔòÎ´ÄÜ¼°Ê±µ½´ïÆ½Ãæ£¬ÕâÊ±ĞèÒªµ÷ÓÃÕß½øĞĞ¼ì²é
+	//å¦‚æœ å¤§äº1ï¼Œåˆ™æœªèƒ½åŠæ—¶åˆ°è¾¾å¹³é¢ï¼Œè¿™æ—¶éœ€è¦è°ƒç”¨è€…è¿›è¡Œæ£€æŸ¥
 	return t;
 }
 
-//¼ì²âAABBµÄÏà½»ĞÔ£¬Èç¹û·µ»Øtrue£¬»¹¿ÉÒÔ·µ»ØÏà½»²¿·ÖµÄAABB
+//æ£€æµ‹AABBçš„ç›¸äº¤æ€§ï¼Œå¦‚æœè¿”å›trueï¼Œè¿˜å¯ä»¥è¿”å›ç›¸äº¤éƒ¨åˆ†çš„AABB
 bool intersectAABBs(const AABB3& box1, const AABB3& box2, AABB3* boxIntersect)
 {
-	//ÅĞ¶ÏÊÇ·ñÓĞÖØµş
+	//åˆ¤æ–­æ˜¯å¦æœ‰é‡å 
 	if (box1.min.x > box2.max.x)return false;
 	if (box1.min.y > box2.max.y)return false;
 	if (box1.min.z > box2.max.z)return false;
 	if (box1.max.x < box2.min.x)return false;
 	if (box1.max.y < box2.min.y)return false;
 	if (box1.max.z < box2.min.z)return false;
-	//ÓĞÖØµş£¬¼ÆËãÖØµş²¿·ÖµÄAABB£¬
+	//æœ‰é‡å ï¼Œè®¡ç®—é‡å éƒ¨åˆ†çš„AABBï¼Œ
 	if (boxIntersect != NULL) {
 		boxIntersect->min.x = std::max(box1.min.x, box2.min.x);
 		boxIntersect->min.y = std::max(box1.min.y, box2.min.y);
@@ -501,22 +501,22 @@ bool intersectAABBs(const AABB3& box1, const AABB3& box2, AABB3* boxIntersect)
 	return true;
 }
 
-//·µ»ØÔË¶¯AABBºÍ¾²Ö¹AABBÏà½»Ê±µÄ²ÎÊıµã£¬Èç¹û²»Ïà½»Ôò·µ»ØÖµ´óÓÚ1
+//è¿”å›è¿åŠ¨AABBå’Œé™æ­¢AABBç›¸äº¤æ—¶çš„å‚æ•°ç‚¹ï¼Œå¦‚æœä¸ç›¸äº¤åˆ™è¿”å›å€¼å¤§äº1
 float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, const Vector3& d)
 {
-	//Èç¹ûÎ´Ïà½»Ôò·µ»ØÕâ¸ö´óÊı
+	//å¦‚æœæœªç›¸äº¤åˆ™è¿”å›è¿™ä¸ªå¤§æ•°
 	const float kNoIntersection = 1e30f;
-	//³õÊ¼»¯Ê±¼äÇø¼ä£¬ÒÔ°üº¬ĞèÒª¿¼ÂÇµÄÈ«²¿Ê±¼ä¶Î
+	//åˆå§‹åŒ–æ—¶é—´åŒºé—´ï¼Œä»¥åŒ…å«éœ€è¦è€ƒè™‘çš„å…¨éƒ¨æ—¶é—´æ®µ
 	float tEnter = 0.0f;
 	float tLeave = 1.0f;
-	//¼ÆËãÃ¿Ò»Î¬µÄÖØµş²¿·Ö£¬ÔÙ½«Õâ¸öÖØµş²¿·ÖºÍÇ°ÃæµÄÖØµş²¿·ÖÏà½»
-	//Èç¹ûÓĞÒ»Î¬ÉÏÖØµş²¿·ÖÎªÁãÔò·µ»Ø(²»»áÏà½»)
-	//Ã¿Ò»Î¬ÉÏ¶¼±ØĞëµ±ĞÄÁãÖØµş
+	//è®¡ç®—æ¯ä¸€ç»´çš„é‡å éƒ¨åˆ†ï¼Œå†å°†è¿™ä¸ªé‡å éƒ¨åˆ†å’Œå‰é¢çš„é‡å éƒ¨åˆ†ç›¸äº¤
+	//å¦‚æœæœ‰ä¸€ç»´ä¸Šé‡å éƒ¨åˆ†ä¸ºé›¶åˆ™è¿”å›(ä¸ä¼šç›¸äº¤)
+	//æ¯ä¸€ç»´ä¸Šéƒ½å¿…é¡»å½“å¿ƒé›¶é‡å 
 	//
 	//
 	//x
 	if (d.x == 0.0f) {
-		//XÖáÉÏÖØµş²¿·ÖÎª¿Õ
+		//Xè½´ä¸Šé‡å éƒ¨åˆ†ä¸ºç©º
 		if ((stationaryBox.min.x > movingBox.max.x) || (stationaryBox.max.x < movingBox.min.x)) {
 			return kNoIntersection;
 		}
@@ -524,21 +524,21 @@ float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, co
 	else
 	{
 		float oneOverD = 1.0f / d.x;
-		//¼ÆËã¿ªÊ¼½Ó´¥ºÍ·ÖÀëµÄÊ±¼ä
+		//è®¡ç®—å¼€å§‹æ¥è§¦å’Œåˆ†ç¦»çš„æ—¶é—´
 		float xEnter = (stationaryBox.min.x - movingBox.max.x) * oneOverD;
 		float xLeave = (stationaryBox.max.x - movingBox.min.x) * oneOverD;
-		//¼ì²éÅÅĞò
+		//æ£€æŸ¥æ’åº
 		if (xEnter > xLeave) {
 			std::swap(xEnter, xLeave);
 		}
-		//¸üĞÂÇø¼ä
+		//æ›´æ–°åŒºé—´
 		if (xEnter > tEnter) {
 			tEnter = xEnter;
 		}
 		if (xLeave < tLeave) {
 			tLeave = xLeave;
 		}
-		//ÊÇ·ñµ¼ÖÂ¿Õ¼äÖØµş
+		//æ˜¯å¦å¯¼è‡´ç©ºé—´é‡å 
 		if (tEnter > tLeave) {
 			return kNoIntersection;
 		}
@@ -546,7 +546,7 @@ float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, co
 
 	//y
 	if (d.y == 0.0f) {
-		//yÖáÉÏÖØµş²¿·ÖÎª¿Õ
+		//yè½´ä¸Šé‡å éƒ¨åˆ†ä¸ºç©º
 		if ((stationaryBox.min.y > movingBox.max.y) || (stationaryBox.max.y < movingBox.min.y)) {
 			return kNoIntersection;
 		}
@@ -554,21 +554,21 @@ float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, co
 	else
 	{
 		float oneOverD = 1.0f / d.y;
-		//¼ÆËã¿ªÊ¼½Ó´¥ºÍ·ÖÀëµÄÊ±¼ä
+		//è®¡ç®—å¼€å§‹æ¥è§¦å’Œåˆ†ç¦»çš„æ—¶é—´
 		float yEnter = (stationaryBox.min.y - movingBox.max.y) * oneOverD;
 		float yLeave = (stationaryBox.max.y - movingBox.min.y) * oneOverD;
-		//¼ì²éÅÅĞò
+		//æ£€æŸ¥æ’åº
 		if (yEnter > yLeave) {
 			std::swap(yEnter, yLeave);
 		}
-		//¸üĞÂÇø¼ä
+		//æ›´æ–°åŒºé—´
 		if (yEnter > tEnter) {
 			tEnter = yEnter;
 		}
 		if (yLeave < tLeave) {
 			tLeave = yLeave;
 		}
-		//ÊÇ·ñµ¼ÖÂ¿Õ¼äÖØµş
+		//æ˜¯å¦å¯¼è‡´ç©ºé—´é‡å 
 		if (tEnter > tLeave) {
 			return kNoIntersection;
 		}
@@ -576,7 +576,7 @@ float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, co
 
 	//z
 	if (d.z == 0.0f) {
-		//zÖáÉÏÖØµş²¿·ÖÎª¿Õ
+		//zè½´ä¸Šé‡å éƒ¨åˆ†ä¸ºç©º
 		if ((stationaryBox.min.z > movingBox.max.z) || (stationaryBox.max.z < movingBox.min.z)) {
 			return kNoIntersection;
 		}
@@ -584,21 +584,21 @@ float intersectMovingAABB(const AABB3& stationaryBox, const AABB3& movingBox, co
 	else
 	{
 		float oneOverD = 1.0f / d.z;
-		//¼ÆËã¿ªÊ¼½Ó´¥ºÍ·ÖÀëµÄÊ±¼ä
+		//è®¡ç®—å¼€å§‹æ¥è§¦å’Œåˆ†ç¦»çš„æ—¶é—´
 		float zEnter = (stationaryBox.min.z - movingBox.max.z) * oneOverD;
 		float zLeave = (stationaryBox.max.z - movingBox.min.z) * oneOverD;
-		//¼ì²éÅÅĞò
+		//æ£€æŸ¥æ’åº
 		if (zEnter > zLeave) {
 			std::swap(zEnter, zLeave);
 		}
-		//¸üĞÂÇø¼ä
+		//æ›´æ–°åŒºé—´
 		if (zEnter > tEnter) {
 			tEnter = zEnter;
 		}
 		if (zLeave < tLeave) {
 			tLeave = zLeave;
 		}
-		//ÊÇ·ñµ¼ÖÂ¿Õ¼äÖØµş
+		//æ˜¯å¦å¯¼è‡´ç©ºé—´é‡å 
 		if (tEnter > tLeave) {
 			return kNoIntersection;
 		}

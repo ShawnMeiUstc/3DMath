@@ -7,7 +7,7 @@
 
 #include <cassert>
 
-//ÖÃÎªµ¥Î»¾ØÕó
+//ç½®ä¸ºå•ä½çŸ©é˜µ
 void Matrix4x3::identity() {
 	m11 = 1.0f; m11 = 0.0f; m11 = 0.0f;
 	m21 = 0.0f; m22 = 1.0f; m23 = 0.0f;
@@ -15,17 +15,17 @@ void Matrix4x3::identity() {
 	tx = 0.0f;  ty = 0.0f;  tz = 0.0f;
 }
 
-//½«°üº¬Æ½ÒÆ²¿·ÖµÄµÚËÄĞĞÖÃÎªÁã
+//å°†åŒ…å«å¹³ç§»éƒ¨åˆ†çš„ç¬¬å››è¡Œç½®ä¸ºé›¶
 void Matrix4x3::zeroTranslation() {
 	tx = ty = tz = 0.0f;
 }
 
-//Æ½ÒÆ²¿·Ö¸³Öµ
+//å¹³ç§»éƒ¨åˆ†èµ‹å€¼
 void Matrix4x3::setTranslation(const Vector3& d) {
 	tx = d.x; ty = d.y; tx = d.z;
 }
 
-//Æ½ÒÆ²¿·Ö¸³Öµ
+//å¹³ç§»éƒ¨åˆ†èµ‹å€¼
 void Matrix4x3::setupTranslation(const Vector3& d) {
 	m11 = 1.0f; m11 = 0.0f; m11 = 0.0f;
 	m21 = 0.0f; m22 = 1.0f; m23 = 0.0f;
@@ -33,56 +33,56 @@ void Matrix4x3::setupTranslation(const Vector3& d) {
 	tx = d.x;   ty = d.y;   tx = d.z;
 }
 
-//¹¹ÔìÖ´ĞĞ¾Ö²¿¿Õ¼ä¡ª¡ª>¸¸¿Õ¼ä±ä»»µÄ¾ØÕó
-//ÎïÌå¿Õ¼ä¡ª¡ª>¹ßĞÔ¿Õ¼ä¡ª¡ª>ÊÀ½ç¿Õ¼ä
-//·½Î»Å·À­½Ç»òÕßĞı×ª¾ØÕóÖ¸¶¨
+//æ„é€ æ‰§è¡Œå±€éƒ¨ç©ºé—´â€”â€”>çˆ¶ç©ºé—´å˜æ¢çš„çŸ©é˜µ
+//ç‰©ä½“ç©ºé—´â€”â€”>æƒ¯æ€§ç©ºé—´â€”â€”>ä¸–ç•Œç©ºé—´
+//æ–¹ä½æ¬§æ‹‰è§’æˆ–è€…æ—‹è½¬çŸ©é˜µæŒ‡å®š
 void Matrix4x3::setupLocalToParent(const Vector3& pos, const EulerAngles& orient) {
 	RotationMatrix orientMatrix;
 	orientMatrix.setup(orient);
 	setupLocalToParent(pos, orientMatrix);
 }
 
-//¹¹ÔìÖ´ĞĞ¾Ö²¿¿Õ¼ä¡ª¡ª>¸¸¿Õ¼ä±ä»»µÄ¾ØÕó
+//æ„é€ æ‰§è¡Œå±€éƒ¨ç©ºé—´â€”â€”>çˆ¶ç©ºé—´å˜æ¢çš„çŸ©é˜µ
 void Matrix4x3::setupLocalToParent(const Vector3& pos, const RotationMatrix& orient) {
-	//Ğı×ª¾ØÕóÒ»°ãÊÇ ¹ßĞÔ¡ª¡ª>ÎïÌå¾ØÕó ¼´ ¸¸¡ª¡ª>¾Ö²¿
-	//ĞèÒª¸´ÖÆĞı×ª¾ØÕóµÄ×ªÖÃ
+	//æ—‹è½¬çŸ©é˜µä¸€èˆ¬æ˜¯ æƒ¯æ€§â€”â€”>ç‰©ä½“çŸ©é˜µ å³ çˆ¶â€”â€”>å±€éƒ¨
+	//éœ€è¦å¤åˆ¶æ—‹è½¬çŸ©é˜µçš„è½¬ç½®
 	m11 = orient.m11; m12 = orient.m21; m13 = orient.m31;
 	m21 = orient.m12; m22 = orient.m22; m23 = orient.m32;
 	m31 = orient.m13; m32 = orient.m23; m33 = orient.m33;
 
-	//Æ½ÒÆ²¿·ÖÖ±½Ó¸´ÖÆ
+	//å¹³ç§»éƒ¨åˆ†ç›´æ¥å¤åˆ¶
 	tx = pos.x; ty = pos.y; tz = pos.z;
 }
 
-//¹¹ÔìÖ´ĞĞ¸¸¿Õ¼ä¡ª¡ª>¾Ö²¿¿Õ¼ä±ä»»µÄ¾ØÕó
-//ÊÀ½ç¿Õ¼ä¡ª¡ª>¹ßĞÔ¿Õ¼ä¡ª¡ª>ÎïÌå¿Õ¼ä
-//¹¹ÔìÁ½¸ö¾ØÕó Æ½ÒÆ¾ØÕóT ºÍ Ğı×ª¾ØÕóR £¬ÔÙÁ¬½ÓM = TR
-//·½Î»Å·À­½Ç»òÕßĞı×ª¾ØÕóÖ¸¶¨
+//æ„é€ æ‰§è¡Œçˆ¶ç©ºé—´â€”â€”>å±€éƒ¨ç©ºé—´å˜æ¢çš„çŸ©é˜µ
+//ä¸–ç•Œç©ºé—´â€”â€”>æƒ¯æ€§ç©ºé—´â€”â€”>ç‰©ä½“ç©ºé—´
+//æ„é€ ä¸¤ä¸ªçŸ©é˜µ å¹³ç§»çŸ©é˜µT å’Œ æ—‹è½¬çŸ©é˜µR ï¼Œå†è¿æ¥M = TR
+//æ–¹ä½æ¬§æ‹‰è§’æˆ–è€…æ—‹è½¬çŸ©é˜µæŒ‡å®š
 void Matrix4x3::setupParentToLocal(const Vector3& pos, const EulerAngles& orient) {
 	RotationMatrix orientMatrix;
 	orientMatrix.setup(orient);
 	setupParentToLocal(pos, orientMatrix);
 }
 
-//¹¹ÔìÖ´ĞĞ¸¸¿Õ¼ä¡ª¡ª>¾Ö²¿¿Õ¼ä±ä»»µÄ¾ØÕó
+//æ„é€ æ‰§è¡Œçˆ¶ç©ºé—´â€”â€”>å±€éƒ¨ç©ºé—´å˜æ¢çš„çŸ©é˜µ
 void Matrix4x3::setupParentToLocal(const Vector3& pos, const RotationMatrix& orient) {
-	//Ö±½Ó¸´ÖÆ£¬²»ĞèÒª×ªÖÃ
+	//ç›´æ¥å¤åˆ¶ï¼Œä¸éœ€è¦è½¬ç½®
 	m11 = orient.m11; m12 = orient.m12; m13 = orient.m31;
 	m21 = orient.m21; m22 = orient.m22; m23 = orient.m23;
 	m31 = orient.m31; m32 = orient.m32; m33 = orient.m33;
 
-	//Ó¦¸ÃĞı×ªÆ½ÒÆ²¿·Ö
-	//Õâ¸öºÍÏÈ´´½¨Æ½ÒÆ-posµÄ¾ØÕóT£¬ÔÚ´´½¨Ğı×ª¾ØÕóR
-	//ÔÙ M = TR ÊÇÒ»ÑùµÄ
+	//åº”è¯¥æ—‹è½¬å¹³ç§»éƒ¨åˆ†
+	//è¿™ä¸ªå’Œå…ˆåˆ›å»ºå¹³ç§»-posçš„çŸ©é˜µTï¼Œåœ¨åˆ›å»ºæ—‹è½¬çŸ©é˜µR
+	//å† M = TR æ˜¯ä¸€æ ·çš„
 	tx = -(pos.x * m11 + pos.y * m21 + pos.z * m31);
 	ty = -(pos.x * m12 + pos.y * m22 + pos.z * m32);
 	tz = -(pos.x * m13 + pos.y * m23 + pos.z * m33);
 }
 
-//¹¹ÔìÈÆ×ø±êÖáĞı×ªµÄ¾ØÕó
-//axis:Ğı×ªÖáµÄË÷Òı
-//theta Ğı×ªµÄ»¡¶È£¬×óÊÖ·¨Ôò¶¨ÒåÕı·½Ïò
-//Æ½ÒÆ²¿·ÖÖÃÁã
+//æ„é€ ç»•åæ ‡è½´æ—‹è½¬çš„çŸ©é˜µ
+//axis:æ—‹è½¬è½´çš„ç´¢å¼•
+//theta æ—‹è½¬çš„å¼§åº¦ï¼Œå·¦æ‰‹æ³•åˆ™å®šä¹‰æ­£æ–¹å‘
+//å¹³ç§»éƒ¨åˆ†ç½®é›¶
 void Matrix4x3::setupRotate(AxisTypeEnum& axis, float theta) {
 	float s, c;
 	sinCos(s, c, theta);
@@ -111,12 +111,12 @@ void Matrix4x3::setupRotate(AxisTypeEnum& axis, float theta) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹ÔìÈÆÈÎÒâÖáĞı×ªµÄ¾ØÕó
-//Ğı×ªÖáÍ¨¹ıÔ­µã£¬Ğı×ªÖáÎªµ¥Î»ÏòÁ¿
-//theta Ğı×ªµÄ»¡¶È£¬×óÊÖ·¨Ôò¶¨ÒåÕı·½Ïò
-//Æ½ÒÆ²¿·ÖÖÃÁã
+//æ„é€ ç»•ä»»æ„è½´æ—‹è½¬çš„çŸ©é˜µ
+//æ—‹è½¬è½´é€šè¿‡åŸç‚¹ï¼Œæ—‹è½¬è½´ä¸ºå•ä½å‘é‡
+//theta æ—‹è½¬çš„å¼§åº¦ï¼Œå·¦æ‰‹æ³•åˆ™å®šä¹‰æ­£æ–¹å‘
+//å¹³ç§»éƒ¨åˆ†ç½®é›¶
 void Matrix4x3::setupRotate(const Vector3& axis, float theta) {
-	//¼ì²éĞı×ªÖáÊÇ·ñÎªµ¥Î»ÏòÁ¿
+	//æ£€æŸ¥æ—‹è½¬è½´æ˜¯å¦ä¸ºå•ä½å‘é‡
 	assert(fabs(magtitude(axis) * magtitude(axis) - 1.0f) < 0.01f);
 	float s, c;
 	sinCos(s, c, theta);
@@ -140,7 +140,7 @@ void Matrix4x3::setupRotate(const Vector3& axis, float theta) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹ÔìĞı×ª¾ØÕó£¬½ÇÎ»ÒÆÓÉËÄÔªÊı¸ø³ö
+//æ„é€ æ—‹è½¬çŸ©é˜µï¼Œè§’ä½ç§»ç”±å››å…ƒæ•°ç»™å‡º
 void Matrix4x3::fromQuaternion(const Quaternion& q) {
 	float xx = 2.0f * q.x * q.x;
 	float yy = 2.0f * q.y * q.y;
@@ -167,7 +167,7 @@ void Matrix4x3::fromQuaternion(const Quaternion& q) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹ÔìÑØ×ø±êÖáËõ·ÅµÄ¾ØÕó
+//æ„é€ æ²¿åæ ‡è½´ç¼©æ”¾çš„çŸ©é˜µ
 void Matrix4x3::setupScale(const Vector3& s) {
 	m11 = s.x; m11 = 0.0f; m11 = 0.0f;
 	m21 = 0.0f; m22 = s.y; m23 = 0.0f;
@@ -176,9 +176,9 @@ void Matrix4x3::setupScale(const Vector3& s) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹ÔìÑØÈÎÒâÖáËõ·ÅµÄ¾ØÕó
+//æ„é€ æ²¿ä»»æ„è½´ç¼©æ”¾çš„çŸ©é˜µ
 void Matrix4x3::setupScaleAlongAxis(const Vector3& axis, float k) {
-	//¼ì²éÊÇ·ñÎªµ¥Î»ÏòÁ¿
+	//æ£€æŸ¥æ˜¯å¦ä¸ºå•ä½å‘é‡
 	assert(fabs(magtitude(axis) * magtitude(axis) - 1.0f) < 0.01f);
 	float a = k - 1;
 	float xx = a * axis.x * axis.x;
@@ -203,7 +203,7 @@ void Matrix4x3::setupScaleAlongAxis(const Vector3& axis, float k) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹ÔìÇĞ±ä¾ØÕó
+//æ„é€ åˆ‡å˜çŸ©é˜µ
 void Matrix4x3::setupShear(AxisTypeEnum axis, float s, float t) {
 	switch (axis)
 	{
@@ -230,9 +230,9 @@ void Matrix4x3::setupShear(AxisTypeEnum axis, float s, float t) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹ÔìÍ¶Ó°¾ØÕó£¬Í¶Ó°Æ½Ãæ¹ıÔ­µã,ÇÒ´¹Ö±ÓÚµ¥Î»ÏòÁ¿n
+//æ„é€ æŠ•å½±çŸ©é˜µï¼ŒæŠ•å½±å¹³é¢è¿‡åŸç‚¹,ä¸”å‚ç›´äºå•ä½å‘é‡n
 void Matrix4x3::setupProject(const Vector3& n) {
-	//¼ì²éÊÇ·ñÎªµ¥Î»ÏòÁ¿
+	//æ£€æŸ¥æ˜¯å¦ä¸ºå•ä½å‘é‡
 	assert(fabs(magtitude(n) * magtitude(n) - 1.0f) < 1.0f);
 
 	m11 = 1.0f - n.x * n.x;
@@ -246,7 +246,7 @@ void Matrix4x3::setupProject(const Vector3& n) {
 	tx = ty = tz = 0.0f;
 }
 
-//¹¹Ôì·´Éä¾ØÕó
+//æ„é€ åå°„çŸ©é˜µ
 void Matrix4x3::setupReflect(AxisTypeEnum axis, float k) {
 	switch (axis)
 	{
@@ -277,9 +277,9 @@ void Matrix4x3::setupReflect(AxisTypeEnum axis, float k) {
 	} 
 }
 
-//¹¹ÔìÈÎÒâÆ½Ãæ·´ÉäµÄ¾ØÕó
+//æ„é€ ä»»æ„å¹³é¢åå°„çš„çŸ©é˜µ
 void Matrix4x3::setupReflect(const Vector3& n) {
-	//¼ì²éÊÇ·ñÎªµ¥Î»ÏòÁ¿
+	//æ£€æŸ¥æ˜¯å¦ä¸ºå•ä½å‘é‡
 	assert(fabs(magtitude(n) * magtitude(n) - 1.0f) < 1.0f);
 
 	float ax = -2.0f * n.x;
@@ -297,8 +297,8 @@ void Matrix4x3::setupReflect(const Vector3& n) {
 	tx = ty = tz = 0.0f;
 }
 
-//ÔËËã·û* ÓÃÀ´±ä»»µã»òÁ¬½Ó¾ØÕó£¬³Ë·¨µÄË³Ğò´Ó×óÍùÓÒÑØ±ä»»µÄË³Ğò½øĞĞ
-//ÏòÁ¿*¾ØÕó
+//è¿ç®—ç¬¦* ç”¨æ¥å˜æ¢ç‚¹æˆ–è¿æ¥çŸ©é˜µï¼Œä¹˜æ³•çš„é¡ºåºä»å·¦å¾€å³æ²¿å˜æ¢çš„é¡ºåºè¿›è¡Œ
+//å‘é‡*çŸ©é˜µ
 Vector3 operator* (const Vector3& p, const Matrix4x3& m) {
 	return Vector3(
 		p.x * m.m11 + p.y * m.m21 + p.z * m.m31 + m.tx,
@@ -307,7 +307,7 @@ Vector3 operator* (const Vector3& p, const Matrix4x3& m) {
 	);
 }
 
-//¾ØÕó*¾ØÕó
+//çŸ©é˜µ*çŸ©é˜µ
 Matrix4x3 operator* (const Matrix4x3& a, const Matrix4x3& b) {
 	Matrix4x3 r;
 
@@ -331,7 +331,7 @@ Matrix4x3 operator* (const Matrix4x3& a, const Matrix4x3& b) {
 }
 
 
-//ÔËËã·û*=£¬±£³ÖºÍc++±ê×¼Óï·¨µÄÒ»ÖÂĞÔ
+//è¿ç®—ç¬¦*=ï¼Œä¿æŒå’Œc++æ ‡å‡†è¯­æ³•çš„ä¸€è‡´æ€§
 Vector3& operator*= (Vector3& p, const Matrix4x3& m) {
 	p = p * m;
 	return p;
@@ -342,17 +342,17 @@ Matrix4x3& operator*= (Matrix4x3& a, const Matrix4x3& b) {
 	return a;
 }
 
-//¼ÆËã3x3²¿·ÖµÄĞĞÁĞÊ½Öµ
+//è®¡ç®—3x3éƒ¨åˆ†çš„è¡Œåˆ—å¼å€¼
 float determinant(const Matrix4x3& m) {
 	return m.m11 * (m.m22 * m.m33 - m.m23 * m.m32)
 		+ m.m12 * (m.m23 * m.m31 - m.m21 * m.m33)
 		+ m.m13 * (m.m21 * m.m32 - m.m22 * m.m31);
 }
 
-//¼ÆËã¾ØÕóµÄÄæ
+//è®¡ç®—çŸ©é˜µçš„é€†
 Matrix4x3 inverse(const Matrix4x3& m) {
 	float det = determinant(m);
-	//ĞĞÁĞÊ½ÎªÁã £¬ÊÇÆæÒìµÄ£¬Ã»ÓĞÄæ¾ØÕó
+	//è¡Œåˆ—å¼ä¸ºé›¶ ï¼Œæ˜¯å¥‡å¼‚çš„ï¼Œæ²¡æœ‰é€†çŸ©é˜µ
 	assert(fabs(det) > 0.000001f);
 	float oneOverDet = 1.0f / det;
 
@@ -376,15 +376,15 @@ Matrix4x3 inverse(const Matrix4x3& m) {
 	return r;
 }
 
-//ÌáÈ¡¾ØÕóµÄÆ½ÒÆ²¿·Ö
+//æå–çŸ©é˜µçš„å¹³ç§»éƒ¨åˆ†
 Vector3 getTranslation(const Matrix4x3& m) {
 	return Vector3(m.tx, m.ty, m.tz);
 }
 
-//´Ó¾ØÕóÖĞ»ñÈ¡·½Î»
-//´Ó¸¸¾ØÕó¡ª¡ª¾Ö²¿¾ØÕó¾ØÕóÖĞ»ñÈ¡·½Î»
+//ä»çŸ©é˜µä¸­è·å–æ–¹ä½
+//ä»çˆ¶çŸ©é˜µâ€”â€”å±€éƒ¨çŸ©é˜µçŸ©é˜µä¸­è·å–æ–¹ä½
 Vector3 getPositionFromParentToLocalMatrix(const Matrix4x3& m) {
-	// ¸ºµÄÆ½ÒÆÖµ³ËÒÔ3x3²¿·ÖµÄ×ªÖÃ
+	// è´Ÿçš„å¹³ç§»å€¼ä¹˜ä»¥3x3éƒ¨åˆ†çš„è½¬ç½®
 	return Vector3(
 		-(m.tx * m.m11 + m.ty * m.m12 + m.tz * m.m13),
 		-(m.tx * m.m21 + m.ty * m.m22 + m.tz * m.m23),
@@ -392,7 +392,7 @@ Vector3 getPositionFromParentToLocalMatrix(const Matrix4x3& m) {
 	);
 }
 
-//´Ó¾Ö²¿¾Ø¡ª¡ª¸¸¾ØÕóÕó¾ØÕóÖĞ»ñÈ¡·½Î»
+//ä»å±€éƒ¨çŸ©â€”â€”çˆ¶çŸ©é˜µé˜µçŸ©é˜µä¸­è·å–æ–¹ä½
 Vector3 getPositionFromLocalToParentMatrix(const Matrix4x3& m) {
 	return Vector3(m.tx, m.ty, m.tz);
 }

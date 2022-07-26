@@ -41,37 +41,37 @@ public:
 
 	void setupShear(AxisTypeEnum axis, float s, float t);
 
-	//¹¹ÔìÍ¶Ó°¾ØÕó£¬Í¶Ó°Æ½Ãæ¹ıÔ­µã,ÇÒ´¹Ö±ÓÚµ¥Î»ÏòÁ¿n
+	//æ„é€ æŠ•å½±çŸ©é˜µï¼ŒæŠ•å½±å¹³é¢è¿‡åŸç‚¹,ä¸”å‚ç›´äºå•ä½å‘é‡n
 	void setupProject(const Vector3& n);
 
-	//¹¹Ôì·´Éä¾ØÕó
+	//æ„é€ åå°„çŸ©é˜µ
 	void setupReflect(AxisTypeEnum axis, float k = 0.0f);
 
-	//¹¹ÔìÈÎÒâÆ½Ãæ·´ÉäµÄ¾ØÕó
+	//æ„é€ ä»»æ„å¹³é¢åå°„çš„çŸ©é˜µ
 	void setupReflect(const Vector3& n);
 
 };
 
-//ÔËËã·û* ÓÃÀ´±ä»»µã»òÁ¬½Ó¾ØÕó£¬³Ë·¨µÄË³Ğò´Ó×óÍùÓÒÑØ±ä»»µÄË³Ğò½øĞĞ
+//è¿ç®—ç¬¦* ç”¨æ¥å˜æ¢ç‚¹æˆ–è¿æ¥çŸ©é˜µï¼Œä¹˜æ³•çš„é¡ºåºä»å·¦å¾€å³æ²¿å˜æ¢çš„é¡ºåºè¿›è¡Œ
 Vector3 operator* (const Vector3& p, const Matrix4x3& m);
 Matrix4x3 operator* (const Matrix4x3& a, const Matrix4x3& b);
 
 
-//ÔËËã·û*=£¬±£³ÖºÍc++±ê×¼Óï·¨µÄÒ»ÖÂĞÔ
+//è¿ç®—ç¬¦*=ï¼Œä¿æŒå’Œc++æ ‡å‡†è¯­æ³•çš„ä¸€è‡´æ€§
 Vector3& operator*= (Vector3& p, const Matrix4x3& m);
 Matrix4x3& operator*= (Matrix4x3& a, const Matrix4x3& b);
 
-//¼ÆËã3x3²¿·ÖµÄĞĞÁĞÊ½Öµ
+//è®¡ç®—3x3éƒ¨åˆ†çš„è¡Œåˆ—å¼å€¼
 float determinant(const Matrix4x3& m);
 
-//¼ÆËã¾ØÕóµÄÄæ
+//è®¡ç®—çŸ©é˜µçš„é€†
 Matrix4x3 inverse(const Matrix4x3& m);
 
-//ÌáÈ¡¾ØÕóµÄÆ½ÒÆ²¿·Ö
+//æå–çŸ©é˜µçš„å¹³ç§»éƒ¨åˆ†
 Vector3 getTranslation(const Matrix4x3& m);
 
-//´Ó¾ØÕóÖĞ»ñÈ¡·½Î»
-//´Ó¸¸¾ØÕó¡ª¡ª¾Ö²¿¾ØÕó¾ØÕóÖĞ»ñÈ¡·½Î»
+//ä»çŸ©é˜µä¸­è·å–æ–¹ä½
+//ä»çˆ¶çŸ©é˜µâ€”â€”å±€éƒ¨çŸ©é˜µçŸ©é˜µä¸­è·å–æ–¹ä½
 Vector3 getPositionFromParentToLocalMatrix(const Matrix4x3& m);
-//´Ó¾Ö²¿¾Ø¡ª¡ª¸¸¾ØÕóÕó¾ØÕóÖĞ»ñÈ¡·½Î»
+//ä»å±€éƒ¨çŸ©â€”â€”çˆ¶çŸ©é˜µé˜µçŸ©é˜µä¸­è·å–æ–¹ä½
 Vector3 getPositionFromLocalToParentMatrix(const Matrix4x3& m);

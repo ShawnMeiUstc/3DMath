@@ -1,8 +1,8 @@
-/// ¶Ô±äÁ¿¶øÑÔ£¬Èç¹ûÄãÏëÔÚ±¾Ô´ÎÄ¼þÖÐÊ¹ÓÃÁíÒ»¸öÔ´ÎÄ¼þµÄ±äÁ¿£¨×¢Òâ£º´ËÊ±Õâ¸ö±äÁ¿Ó¦¸ÃÊÇÈ«¾Ö±äÁ¿£¬¶¨ÒåËüµÄÎ»ÖÃÊÇÔÚËùÓÐº¯ÊýÖ®Íâ£©£¬
-/// ¾ÍÐèÒªÔÚÊ¹ÓÃÇ°ÓÃexternÉùÃ÷¸Ã±äÁ¿£¬»òÕßÔÚÍ·ÎÄ¼þÖÐÓÃexternÉùÃ÷¸Ã±äÁ¿£»
+/// å¯¹å˜é‡è€Œè¨€ï¼Œå¦‚æžœä½ æƒ³åœ¨æœ¬æºæ–‡ä»¶ä¸­ä½¿ç”¨å¦ä¸€ä¸ªæºæ–‡ä»¶çš„å˜é‡ï¼ˆæ³¨æ„ï¼šæ­¤æ—¶è¿™ä¸ªå˜é‡åº”è¯¥æ˜¯å…¨å±€å˜é‡ï¼Œå®šä¹‰å®ƒçš„ä½ç½®æ˜¯åœ¨æ‰€æœ‰å‡½æ•°ä¹‹å¤–ï¼‰ï¼Œ
+/// å°±éœ€è¦åœ¨ä½¿ç”¨å‰ç”¨externå£°æ˜Žè¯¥å˜é‡ï¼Œæˆ–è€…åœ¨å¤´æ–‡ä»¶ä¸­ç”¨externå£°æ˜Žè¯¥å˜é‡ï¼›
 ///
-/// ¶Ôº¯Êý¶øÑÔ£¬Èç¹ûÄãÏëÔÚ±¾Ô´ÎÄ¼þÖÐÊ¹ÓÃÁíÒ»¸öÔ´ÎÄ¼þµÄº¯Êý£¨×¢Òâ£º´ËÊ±Õâ¸öº¯ÊýÓ¦¸ÃÊÇÈ«¾Öº¯Êý£¬¶¨ÒåËüµÄÎ»ÖÃÊÇÔÚËùÓÐº¯ÊýÖ®Íâ£©£¬
-/// ¾ÍÐèÒªÔÚÊ¹ÓÃÇ°ÓÃÉùÃ÷¸Ãº¯Êý£¬ÉùÃ÷º¯Êý¼Ó²»¼Óextern¶¼Ã»¹ØÏµ£¬ËùÒÔÔÚÍ·ÎÄ¼þÖÐº¯Êý¿ÉÒÔ²»ÓÃ¼Óextern¡£
+/// å¯¹å‡½æ•°è€Œè¨€ï¼Œå¦‚æžœä½ æƒ³åœ¨æœ¬æºæ–‡ä»¶ä¸­ä½¿ç”¨å¦ä¸€ä¸ªæºæ–‡ä»¶çš„å‡½æ•°ï¼ˆæ³¨æ„ï¼šæ­¤æ—¶è¿™ä¸ªå‡½æ•°åº”è¯¥æ˜¯å…¨å±€å‡½æ•°ï¼Œå®šä¹‰å®ƒçš„ä½ç½®æ˜¯åœ¨æ‰€æœ‰å‡½æ•°ä¹‹å¤–ï¼‰ï¼Œ
+/// å°±éœ€è¦åœ¨ä½¿ç”¨å‰ç”¨å£°æ˜Žè¯¥å‡½æ•°ï¼Œå£°æ˜Žå‡½æ•°åŠ ä¸åŠ externéƒ½æ²¡å…³ç³»ï¼Œæ‰€ä»¥åœ¨å¤´æ–‡ä»¶ä¸­å‡½æ•°å¯ä»¥ä¸ç”¨åŠ externã€‚
 
 #pragma once
 #include <algorithm>
@@ -23,25 +23,25 @@ inline void sinCos(float& returnSin, float& returnCos, float theta) {
 }
 class Vector3;
 /// <summary>
-/// ¿ìËÙÉäÏßÓëÈý½ÇÐÎÏà½»¼ì²â Ë¼Ïë¾ÍÊÇÉäÏß·½³ÌºÍÖØÐÄ×ø±ê²ÎÊý·½³ÌÁªÁ¢£¬½âµÃ½»µã
+/// å¿«é€Ÿå°„çº¿ä¸Žä¸‰è§’å½¢ç›¸äº¤æ£€æµ‹ æ€æƒ³å°±æ˜¯å°„çº¿æ–¹ç¨‹å’Œé‡å¿ƒåæ ‡å‚æ•°æ–¹ç¨‹è”ç«‹ï¼Œè§£å¾—äº¤ç‚¹
 /// https://www.cnblogs.com/graphics/archive/2010/08/09/1795348.html
 /// </summary>
-/// <param name="orig">ÉäÏßÆðµã</param>
-/// <param name="dir">ÉäÏß·½ÏòÏòÁ¿</param>
-/// <param name="v0">Èý½ÇÐÎ¶¥µã</param>
-/// <param name="v1">Èý½ÇÐÎ¶¥µã</param>
-/// <param name="v2">Èý½ÇÐÎ¶¥µã</param>
-/// <param name="t">Ïà½»Ê±ÉäÏß²ÎÊýÖµ P = orig + dir¡¤t </param>
-/// <param name="u">½»µãÔÚÖØÐÄ×ø±êÏÂµÄ²ÎÊýÖµ</param>
-/// <param name="v">½»µãÔÚÖØÐÄ×ø±êÏÂµÄ²ÎÊýÖµ</param>
-/// <returns>ÊÇ·ñÏà½»</returns>
+/// <param name="orig">å°„çº¿èµ·ç‚¹</param>
+/// <param name="dir">å°„çº¿æ–¹å‘å‘é‡</param>
+/// <param name="v0">ä¸‰è§’å½¢é¡¶ç‚¹</param>
+/// <param name="v1">ä¸‰è§’å½¢é¡¶ç‚¹</param>
+/// <param name="v2">ä¸‰è§’å½¢é¡¶ç‚¹</param>
+/// <param name="t">ç›¸äº¤æ—¶å°„çº¿å‚æ•°å€¼ P = orig + dirÂ·t </param>
+/// <param name="u">äº¤ç‚¹åœ¨é‡å¿ƒåæ ‡ä¸‹çš„å‚æ•°å€¼</param>
+/// <param name="v">äº¤ç‚¹åœ¨é‡å¿ƒåæ ‡ä¸‹çš„å‚æ•°å€¼</param>
+/// <returns>æ˜¯å¦ç›¸äº¤</returns>
 bool IntersectTriangle(const Vector3& orig, const Vector3& dir,
 	Vector3& v0, Vector3& v1, Vector3& v2,
 	float* t, float* u, float* v);
 
 
 // https://zhuanlan.zhihu.com/p/99761177
-// Í¹¶à±ßÐÎµÄÏà½»ÐÔ¼ì²âµÄ·ÖÀëÖá¶¨Àí
+// å‡¸å¤šè¾¹å½¢çš„ç›¸äº¤æ€§æ£€æµ‹çš„åˆ†ç¦»è½´å®šç†
 
 
 

@@ -20,6 +20,4 @@ public:
 
 	Vector3 InertialToObject(const Vector3& v) const;
 	Vector3 ObjectToInertial(const Vector3& v) const;
-
-
 };

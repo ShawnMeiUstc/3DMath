@@ -4,13 +4,13 @@
 const Vector3 kZeroVector{0.0f, 0.0f, 0.0f};
 
 /// <summary>
-/// ¦È½ÇÏŞÖÆÔÚ-¦Ğµ½¦ĞÖ®¼ä
+/// Î¸è§’é™åˆ¶åœ¨-Ï€åˆ°Ï€ä¹‹é—´
 /// </summary>
 inline float wrapPI(float theta)
 {
 	theta += KPI;
 	/// <summary>
-	/// floor·µ»ØÒ»¸öĞ¡ÓÚ´«Èë²ÎÊıµÄ×î´óÕûÊı 
+	/// floorè¿”å›ä¸€ä¸ªå°äºä¼ å…¥å‚æ•°çš„æœ€å¤§æ•´æ•° 
 	/// </summary>
 	theta -= floor(theta * K1OVER2PI) * K2PI;
 	theta -= KPI;
@@ -29,17 +29,17 @@ inline float safeAcos(float x)
 }
 
 /// <summary>
-/// ¿ìËÙÉäÏßÓëÈı½ÇĞÎÏà½»¼ì²â
+/// å¿«é€Ÿå°„çº¿ä¸ä¸‰è§’å½¢ç›¸äº¤æ£€æµ‹
 /// </summary>
-/// <param name="orig">ÉäÏßÆğµã</param>
-/// <param name="dir">ÉäÏß·½ÏòÏòÁ¿</param>
-/// <param name="v0">Èı½ÇĞÎ¶¥µã</param>
-/// <param name="v1">Èı½ÇĞÎ¶¥µã</param>
-/// <param name="v2">Èı½ÇĞÎ¶¥µã</param>
-/// <param name="t">Ïà½»Ê±ÉäÏß²ÎÊıÖµ P = orig + dir¡¤t </param>
-/// <param name="u">½»µãÔÚÖØĞÄ×ø±êÏÂµÄ²ÎÊıÖµ</param>
-/// <param name="v">½»µãÔÚÖØĞÄ×ø±êÏÂµÄ²ÎÊıÖµ</param>
-/// <returns>ÊÇ·ñÏà½»</returns>
+/// <param name="orig">å°„çº¿èµ·ç‚¹</param>
+/// <param name="dir">å°„çº¿æ–¹å‘å‘é‡</param>
+/// <param name="v0">ä¸‰è§’å½¢é¡¶ç‚¹</param>
+/// <param name="v1">ä¸‰è§’å½¢é¡¶ç‚¹</param>
+/// <param name="v2">ä¸‰è§’å½¢é¡¶ç‚¹</param>
+/// <param name="t">ç›¸äº¤æ—¶å°„çº¿å‚æ•°å€¼ P = orig + dirÂ·t </param>
+/// <param name="u">äº¤ç‚¹åœ¨é‡å¿ƒåæ ‡ä¸‹çš„å‚æ•°å€¼</param>
+/// <param name="v">äº¤ç‚¹åœ¨é‡å¿ƒåæ ‡ä¸‹çš„å‚æ•°å€¼</param>
+/// <returns>æ˜¯å¦ç›¸äº¤</returns>
 bool IntersectTriangle(const Vector3& orig, const Vector3& dir,
     Vector3& v0, Vector3& v1, Vector3& v2,
     float* t, float* u, float* v)

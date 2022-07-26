@@ -13,7 +13,7 @@ public:
 	EulerAngles(float h, float p, float b) : heading(h), pitch(p), bank(b) {}
 
 	/// <summary>
-	/// ÖÃÁã
+	/// ç½®é›¶
 	/// </summary>
 	void identity() {
 		heading = pitch = bank = 0.0f;

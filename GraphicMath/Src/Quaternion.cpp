@@ -132,7 +132,7 @@ float dotPruduct(const Quaternion& a, const Quaternion& b)
 
 Quaternion slerp(const Quaternion& p, const Quaternion& q, float t)
 {
-	// TODO µã³ËÇó³öÁ½ËÄÔªÊıµÄ¼Ğ½Ç£¬ÔÙÕß£¬vt ÊÇ p q µÄÏßĞÔ×éºÏ Çó³öÏµÊı£¬¼´¿ÉÒÔµÃ³övtµÄ±íÊ¾
+	// TODO ç‚¹ä¹˜æ±‚å‡ºä¸¤å››å…ƒæ•°çš„å¤¹è§’ï¼Œå†è€…ï¼Œvt æ˜¯ p q çš„çº¿æ€§ç»„åˆ æ±‚å‡ºç³»æ•°ï¼Œå³å¯ä»¥å¾—å‡ºvtçš„è¡¨ç¤º
 	return Quaternion();
 }
 
@@ -148,7 +148,7 @@ Quaternion conjugate(const Quaternion& q)
 
 Quaternion pow(const Quaternion& q, float exp)
 {
-	// TODO  Çó³ö½Ç¶È¦È£¬ĞÂµÄ½Ç¶ÈÎªexp*¦È£¬´øÈëÇóĞÂµÄËÄÔªÊı¼´¿É
+	// TODO  æ±‚å‡ºè§’åº¦Î¸ï¼Œæ–°çš„è§’åº¦ä¸ºexp*Î¸ï¼Œå¸¦å…¥æ±‚æ–°çš„å››å…ƒæ•°å³å¯
 	
 	return Quaternion();
 }
